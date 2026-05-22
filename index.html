@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fairpoint — a fair point at a time</title>
+  <meta name="description" content="Tiny, opinionated quizzes on Slack and work-comms etiquette. Each site walks you through one specific habit, 40 scenarios at a time." />
+  <style>
+    :root {
+      --slack-purple: #4A154B;
+      --slack-purple-light: #611f64;
+      --here-yellow: #ECB22E;
+      --here-yellow-dark: #c8951f;
+      --green: #2BAC76;
+      --red: #d63b3b;
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #1d1c1d;
+      --muted: #696969;
+      --border: #e6e6e6;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      margin: 0 0 4px;
+      color: var(--slack-purple);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .hero .tagline {
+      font-size: 22px;
+      color: var(--here-yellow-dark);
+      margin: 0 0 6px;
+      font-weight: 500;
+    }
+    .hero .sub {
+      font-size: 17px;
+      color: var(--muted);
+      margin: 0 0 40px;
+      max-width: 560px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 48px 0 16px;
+      color: var(--slack-purple);
+    }
+    h2.muted-h2 {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    code {
+      background: #f1f1f1;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.92em;
+    }
+
+    .lessons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .lesson {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.08s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .lesson:hover {
+      border-color: var(--slack-purple);
+      box-shadow: 0 2px 12px rgba(74, 21, 75, 0.08);
+      transform: translateY(-1px);
+    }
+    .lesson:active {
+      transform: translateY(0);
+    }
+    .lesson .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--slack-purple);
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+    }
+    .lesson .blurb {
+      font-size: 15px;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+    .lesson .url {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .lesson .url::after {
+      content: " →";
+      color: var(--slack-purple);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+    }
+
+    .coming-soon {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .coming-soon li {
+      padding: 14px 18px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .coming-soon li .label {
+      color: var(--text);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    .what-is {
+      background: var(--card);
+      border-left: 3px solid var(--here-yellow);
+      padding: 18px 22px;
+      margin: 32px 0 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+    }
+    .what-is p { margin: 0; }
+    .what-is p + p { margin-top: 10px; }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer a {
+      color: var(--slack-purple);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+    footer .sep {
+      display: inline-block;
+      margin: 0 8px;
+      color: var(--border);
+    }
+
+    @media (max-width: 540px) {
+      .wrap { padding: 32px 18px 60px; }
+      .hero h1 { font-size: 42px; }
+      .hero .tagline { font-size: 19px; }
+      .hero .sub { font-size: 16px; }
+      .lesson { padding: 18px 18px; }
+      .lesson .title { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <h1>Fairpoint</h1>
+      <p class="tagline">A fair point at a time.</p>
+      <p class="sub">Tiny, opinionated quizzes on how to use Slack like you mean it. Take one, learn one habit, share with whoever needs it.</p>
+    </header>
+
+    <div class="what-is">
+      <p>Most Slack etiquette advice is vague (<em>"use threads more"</em>). Fairpoint is concrete: each site takes one specific habit, walks you through 40 real scenarios, and shows you the failure mode for each wrong answer.</p>
+      <p>Each lesson runs in about 5 minutes.</p>
+    </div>
+
+    <h2>The lessons</h2>
+    <div class="lessons" id="lessons"></div>
+
+    <h2 class="muted-h2">Coming soon</h2>
+    <ul class="coming-soon" id="coming-soon"></ul>
+
+    <footer>
+      Built by <a href="https://github.com/Paulfrazier" target="_blank" rel="noopener">Paul Frazier</a>.
+      <span class="sep">·</span>
+      <a href="https://github.com/Paulfrazier/fairpoint" target="_blank" rel="noopener">Source on GitHub</a>
+    </footer>
+  </main>
+
+  <script>
+    const LESSONS = [
+      {
+        title: "Don't use @here",
+        blurb: "A 40-scenario quiz on @here vs @channel. Spoiler: @here is rarely the right call — it pings only a random subset of the team, creating information asymmetry the rest of the team finds out about later.",
+        url: "https://dontuseathere.fairpoint.website"
+      },
+      {
+        title: "Send to channel… less",
+        blurb: "A 40-scenario quiz on Slack's \"Also send to #channel\" checkbox. Most of the time, leave it unchecked — the thread already notifies the people who care, and the channel doesn't need to read your reply twice.",
+        url: "https://sendtochannelless.fairpoint.website"
+      }
+    ];
+
+    const COMING_SOON = [
+      { label: "Use threads.", note: "On when to start a thread instead of replying flat in the channel." },
+      { label: "More.", note: "If you have a Slack habit you'd like a quiz about, open an issue on GitHub." }
+    ];
+
+    function renderLessons() {
+      const container = document.getElementById("lessons");
+      container.replaceChildren(...LESSONS.map(l => {
+        const a = document.createElement("a");
+        a.className = "lesson";
+        a.href = l.url;
+        a.innerHTML = `
+          <div class="title"></div>
+          <p class="blurb"></p>
+          <div class="url"></div>
+        `;
+        a.querySelector(".title").textContent = l.title;
+        a.querySelector(".blurb").textContent = l.blurb;
+        a.querySelector(".url").textContent = l.url.replace(/^https?:\/\//, "");
+        return a;
+      }));
+    }
+
+    function renderComingSoon() {
+      const container = document.getElementById("coming-soon");
+      container.replaceChildren(...COMING_SOON.map(c => {
+        const li = document.createElement("li");
+        const label = document.createElement("span");
+        label.className = "label";
+        label.textContent = c.label;
+        li.appendChild(label);
+        li.appendChild(document.createTextNode(c.note));
+        return li;
+      }));
+    }
+
+    renderLessons();
+    renderComingSoon();
+  </script>
+</body>
+</html>
