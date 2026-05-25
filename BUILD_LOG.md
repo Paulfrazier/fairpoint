@@ -1,5 +1,15 @@
 # Build Log — fairpoint
 
+## 2026-05-25 — Re-skin to "Playful Arcade" design system
+
+**Prompt:** "Looks great, push" — after rendering the new Fairpoint design system across all sites.
+
+**Problem:** The hub's flat white-on-gray cards were generic and didn't match the more engaging direction.
+
+**Solution:** Restyled `index.html` to the `fairpoint-kit` "Playful Arcade" system — Space Grotesk display type, neobrutalist 2px-ink-border + offset-shadow cards with hover lift, vivid purple/lime/coral palette, paper background with faint radial glows, and a "Play ▸" badge on each lesson card. The data-driven `LESSONS`/`COMING_SOON` script is unchanged — content and links are identical.
+
+**Changed files:** `index.html`
+
 ## 2026-05-21 — Initial scaffold
 
 **Prompt:** "Create the fairpoint.website landing page that links to our two sites. more to come."

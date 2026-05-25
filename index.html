@@ -5,19 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fairpoint — a fair point at a time</title>
   <meta name="description" content="Tiny, opinionated quizzes on Slack and work-comms etiquette. Each site walks you through one specific habit, 40 scenarios at a time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --slack-purple: #4A154B;
-      --slack-purple-light: #611f64;
-      --here-yellow: #ECB22E;
-      --here-yellow-dark: #c8951f;
-      --green: #2BAC76;
-      --red: #d63b3b;
-      --bg: #fafafa;
+      --purple: #4A154B;
+      --purple-electric: #6D28D9;
+      --lime: #84CC16;
+      --lime-ink: #3f6212;
+      --coral: #FB5D3C;
+      --gold: #ECB22E;
+      --ink: #1d1c1d;
+      --paper: #FBFAFF;
       --card: #ffffff;
-      --text: #1d1c1d;
       --muted: #696969;
       --border: #e6e6e6;
+      --shadow: 4px 4px 0 var(--ink);
+      --shadow-lg: 6px 6px 0 var(--ink);
+      --radius: 14px;
+      --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     * { box-sizing: border-box; }
@@ -25,162 +32,149 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--bg);
-      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(109,40,217,0.07), transparent 40%),
+        radial-gradient(circle at 88% 0%, rgba(251,93,60,0.07), transparent 38%),
+        var(--paper);
+      color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       line-height: 1.5;
     }
 
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 56px 20px 80px;
-    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
 
     .hero h1 {
-      font-size: 56px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 64px;
+      font-weight: 700;
       margin: 0 0 4px;
-      color: var(--slack-purple);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
+      color: var(--purple);
+      letter-spacing: -0.03em;
+      line-height: 1.0;
     }
     .hero .tagline {
-      font-size: 22px;
-      color: var(--here-yellow-dark);
-      margin: 0 0 6px;
-      font-weight: 500;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 23px;
+      color: var(--coral);
+      margin: 0 0 8px;
+      font-weight: 700;
     }
-    .hero .sub {
-      font-size: 17px;
-      color: var(--muted);
-      margin: 0 0 40px;
-      max-width: 560px;
-    }
+    .hero .sub { font-size: 17px; color: var(--muted); margin: 0 0 36px; max-width: 560px; }
 
     h2 {
-      font-size: 20px;
-      margin: 48px 0 16px;
-      color: var(--slack-purple);
-    }
-    h2.muted-h2 {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    code {
-      background: #f1f1f1;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.92em;
-    }
-
-    .lessons {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .lesson {
-      display: block;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 22px 24px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.08s, border-color 0.15s, box-shadow 0.15s;
-    }
-    .lesson:hover {
-      border-color: var(--slack-purple);
-      box-shadow: 0 2px 12px rgba(74, 21, 75, 0.08);
-      transform: translateY(-1px);
-    }
-    .lesson:active {
-      transform: translateY(0);
-    }
-    .lesson .title {
+      font-family: "Space Grotesk", sans-serif;
       font-size: 22px;
-      font-weight: 600;
-      color: var(--slack-purple);
-      margin: 0 0 6px;
+      font-weight: 700;
+      margin: 44px 0 16px;
+      color: var(--purple);
       letter-spacing: -0.01em;
     }
-    .lesson .blurb {
-      font-size: 15px;
-      color: var(--text);
-      margin: 0 0 12px;
-    }
-    .lesson .url {
-      font-size: 13px;
-      color: var(--muted);
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    }
-    .lesson .url::after {
-      content: " →";
-      color: var(--slack-purple);
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-weight: 600;
-    }
+    h2.muted-h2 { color: var(--muted); }
 
-    .coming-soon {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .coming-soon li {
-      padding: 14px 18px;
-      background: transparent;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      margin-bottom: 10px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .coming-soon li .label {
-      color: var(--text);
-      font-weight: 600;
-      margin-right: 6px;
+    code {
+      background: #efe9f7;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9em;
     }
 
     .what-is {
       background: var(--card);
-      border-left: 3px solid var(--here-yellow);
+      border: 2px solid var(--ink);
+      border-left: 8px solid var(--gold);
       padding: 18px 22px;
       margin: 32px 0 0;
-      border-radius: 0 8px 8px 0;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       font-size: 15px;
     }
     .what-is p { margin: 0; }
     .what-is p + p { margin-top: 10px; }
 
+    .lessons { display: flex; flex-direction: column; gap: 16px; }
+
+    .lesson {
+      display: block;
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      transition: transform 0.12s var(--bounce), box-shadow 0.12s;
+      position: relative;
+    }
+    .lesson:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
+    .lesson:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .lesson .title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--purple-electric);
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+      padding-right: 70px;
+    }
+    .lesson .blurb { font-size: 15px; color: var(--ink); margin: 0 0 12px; }
+    .lesson .url {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .lesson .play {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 2px solid var(--ink);
+      background: var(--lime);
+      color: var(--ink);
+    }
+
+    .coming-soon { list-style: none; padding: 0; margin: 0; }
+    .coming-soon li {
+      padding: 16px 20px;
+      background: transparent;
+      border: 2px dashed var(--purple-electric);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .coming-soon li .label {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
     footer {
       margin-top: 64px;
       padding-top: 24px;
-      border-top: 1px solid var(--border);
+      border-top: 2px solid var(--border);
       font-size: 13px;
       color: var(--muted);
       text-align: center;
     }
-    footer a {
-      color: var(--slack-purple);
-      text-decoration: none;
-    }
+    footer a { color: var(--purple-electric); text-decoration: none; font-weight: 600; }
     footer a:hover { text-decoration: underline; }
-    footer .sep {
-      display: inline-block;
-      margin: 0 8px;
-      color: var(--border);
-    }
+    footer .sep { display: inline-block; margin: 0 8px; color: var(--border); }
 
     @media (max-width: 540px) {
       .wrap { padding: 32px 18px 60px; }
-      .hero h1 { font-size: 42px; }
-      .hero .tagline { font-size: 19px; }
+      .hero h1 { font-size: 46px; }
+      .hero .tagline { font-size: 20px; }
       .hero .sub { font-size: 16px; }
       .lesson { padding: 18px 18px; }
-      .lesson .title { font-size: 19px; }
+      .lesson .title { font-size: 20px; padding-right: 56px; }
     }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
 <body>
@@ -235,13 +229,14 @@
         a.className = "lesson";
         a.href = l.url;
         a.innerHTML = `
+          <span class="play">Play ▸</span>
           <div class="title"></div>
           <p class="blurb"></p>
           <div class="url"></div>
         `;
         a.querySelector(".title").textContent = l.title;
         a.querySelector(".blurb").textContent = l.blurb;
-        a.querySelector(".url").textContent = l.url.replace(/^https?:\/\//, "");
+        a.querySelector(".url").textContent = l.url.replace(/^https?:\/\//, "") + " →";
         return a;
       }));
     }
