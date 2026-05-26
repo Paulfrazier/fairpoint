@@ -1,5 +1,22 @@
 # Build Log — fairpoint
 
+## 2026-05-26 — Beyond-Slack repositioning + landing-page glow-up
+
+**Prompt:** "The fairpoint landing page needs some love. make it exciting and change the copy to reflect this is beyond slack. its quick tips that are fair points, and good to know."
+
+**Problem:** The hub still framed Fairpoint as Slack-only ("Tiny, opinionated quizzes on how to use Slack like you mean it"), but only 3 of the 8 live lessons are actually Slack — the rest span meetings, shipping, statistics, and money. The page also read as a flat list, lacking the arcade energy of the sites it links to.
+
+**Solution:**
+- **Copy, fully beyond Slack:** new subheadline ("Quick, opinionated tips worth knowing — on Slack, meetings, money, stats, and shipping. Each one's a fair point."), rewrote the "what is this" box around concrete-not-vague + "good to know," renamed the section heading "The lessons" → "The fair points," and broadened the meta description + "Coming soon" invite. Kept the tagline "A fair point at a time."
+- **Visual glow-up (within the Playful Arcade tokens):** added a three-chip stats strip (`8 lessons · 280+ scenarios · ~5 min each`) with rotating accent borders; gave each lesson card a category tag pill + matching colored left accent border, mapped to existing tokens — Slack→purple-electric, Meetings→coral, Shipping→lime, Stats→gold, Money→deep purple.
+- Added a `category` field to each `LESSONS` entry and a `CATEGORIES` color map; render JS sets per-card `--accent`/`--accent-ink` CSS vars. Existing `textContent` escaping unchanged (DESIGN.md trust boundary).
+
+**Key decisions:** Stayed strictly within `fairpoint-kit/DESIGN.md` (named tokens only, 2px ink borders + offset shadows, Space Grotesk display). Used the 5 existing palette tokens for the 5 categories so cards rotate color without introducing new hex. Rounded scenario count down to a safe "280+" (actual ~283 across the 7 quizzes).
+
+**Verification:** Served locally and screenshotted in the gstack headless browser at 720px (desktop) and 390px (mobile) — stats strip, tags, and accent borders render correctly, links intact, no console errors.
+
+**Changed files:** `index.html`, `BUILD_LOG.md`
+
 ## 2026-05-25 — Re-skin to "Playful Arcade" design system
 
 **Prompt:** "Looks great, push" — after rendering the new Fairpoint design system across all sites.

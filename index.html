@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fairpoint — a fair point at a time</title>
-  <meta name="description" content="Tiny, opinionated quizzes on Slack and work-comms etiquette. Each site walks you through one specific habit, 40 scenarios at a time." />
+  <meta name="description" content="Quick, opinionated tips worth knowing — on Slack, meetings, money, stats, and shipping. Each one walks you through dozens of real scenarios. Good to know, a fair point at a time." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -59,7 +59,40 @@
       margin: 0 0 8px;
       font-weight: 700;
     }
-    .hero .sub { font-size: 17px; color: var(--muted); margin: 0 0 36px; max-width: 560px; }
+    .hero .sub { font-size: 17px; color: var(--muted); margin: 0 0 28px; max-width: 560px; }
+
+    .stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 0 0 8px;
+    }
+    .stat {
+      flex: 1 1 0;
+      min-width: 120px;
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-bottom: 6px solid var(--stat-accent, var(--purple-electric));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
+    }
+    .stat .num {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 1;
+      color: var(--purple);
+      letter-spacing: -0.02em;
+    }
+    .stat .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
 
     h2 {
       font-family: "Space Grotesk", sans-serif;
@@ -98,8 +131,9 @@
       display: block;
       background: var(--card);
       border: 2px solid var(--ink);
+      border-left: 8px solid var(--accent, var(--purple-electric));
       border-radius: var(--radius);
-      padding: 22px 24px;
+      padding: 20px 24px 22px;
       text-decoration: none;
       color: inherit;
       box-shadow: var(--shadow);
@@ -108,6 +142,20 @@
     }
     .lesson:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
     .lesson:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .lesson .tag {
+      display: inline-block;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 2px solid var(--ink);
+      background: var(--accent, var(--purple-electric));
+      color: var(--accent-ink, #fff);
+      margin: 0 0 10px;
+    }
     .lesson .title {
       font-family: "Space Grotesk", sans-serif;
       font-size: 23px;
@@ -182,15 +230,16 @@
     <header class="hero">
       <h1>Fairpoint</h1>
       <p class="tagline">A fair point at a time.</p>
-      <p class="sub">Tiny, opinionated quizzes on how to use Slack like you mean it. Take one, learn one habit, share with whoever needs it.</p>
+      <p class="sub">Quick, opinionated tips worth knowing — on Slack, meetings, money, stats, and shipping. Each one's a fair point. Take one, learn the habit, share it with whoever needs it.</p>
+      <div class="stats" id="stats"></div>
     </header>
 
     <div class="what-is">
-      <p>Most Slack etiquette advice is vague (<em>"use threads more"</em>). Fairpoint is concrete: each site takes one specific habit, walks you through 40 real scenarios, and shows you the failure mode for each wrong answer.</p>
-      <p>Each lesson runs in about 5 minutes.</p>
+      <p>Most advice is vague (<em>"communicate better," "use threads more"</em>). Fairpoint is concrete: each one takes a single specific habit, walks you through dozens of real scenarios, and shows you the failure mode behind every wrong answer.</p>
+      <p>Quick to take — about 5 minutes each — and good to know for good.</p>
     </div>
 
-    <h2>The lessons</h2>
+    <h2>The fair points</h2>
     <div class="lessons" id="lessons"></div>
 
     <h2 class="muted-h2">Coming soon</h2>
@@ -204,65 +253,110 @@
   </main>
 
   <script>
+    // Category → accent color (named tokens only) + readable text on that fill.
+    const CATEGORIES = {
+      Slack:    { color: "var(--purple-electric)", ink: "#fff" },
+      Meetings: { color: "var(--coral)",           ink: "#fff" },
+      Shipping: { color: "var(--lime)",            ink: "var(--lime-ink)" },
+      Stats:    { color: "var(--gold)",            ink: "var(--ink)" },
+      Money:    { color: "var(--purple)",          ink: "#fff" }
+    };
+
+    const STATS = [
+      { num: "8",     label: "lessons",   accent: "var(--purple-electric)" },
+      { num: "280+",  label: "scenarios", accent: "var(--coral)" },
+      { num: "~5 min", label: "each",      accent: "var(--lime)" }
+    ];
+
     const LESSONS = [
       {
         title: "Don't use @here",
+        category: "Slack",
         blurb: "A 40-scenario quiz on @here vs @channel. Spoiler: @here is rarely the right call — it pings only a random subset of the team, creating information asymmetry the rest of the team finds out about later.",
         url: "https://dontuseathere.fairpoint.website"
       },
       {
         title: "Send to channel… less",
+        category: "Slack",
         blurb: "A 40-scenario quiz on Slack's \"Also send to #channel\" checkbox. Most of the time, leave it unchecked — the thread already notifies the people who care, and the channel doesn't need to read your reply twice.",
         url: "https://sendtochannelless.fairpoint.website"
       },
       {
         title: "Ship it.",
+        category: "Shipping",
         blurb: "A 40-scenario quiz on shipping early and learning from real users. The fastest way to find out if something works is to put the smallest real version in front of a customer — not to relay feedback through a ring of internal reviews until the signal is gone. Learn when to ship, and the narrow cases where one more review genuinely earns its keep.",
         url: "https://shipit.fairpoint.website"
       },
       {
         title: "Talk less.",
+        category: "Meetings",
         blurb: "A 41-scenario quiz for whoever talks the most in meetings. The default isn't speak up — it's hold back, yield the airtime, and let someone else go. Spend your interruptions like a scarce budget, because people never forget how you made them feel.",
         url: "https://talkless.fairpoint.website"
       },
       {
         title: "Numbers lie.",
+        category: "Stats",
         blurb: "A 41-scenario quiz on statistical literacy. There are three kinds of lies: lies, damned lies, and statistics. Drill the reflex to interrogate a figure — denominator, base rate, sample, axis, who chose this cut — before you trust it, cite it, or repeat it in your own deck.",
         url: "https://numberslie.fairpoint.website"
       },
       {
         title: "Fund it.",
+        category: "Money",
         blurb: "Not a quiz — a set of dead-simple calculators that show how much free money and tax savings your benefits are hiding. Grab the full employer match, watch compounding (and the cost of waiting) play out, and see why an HSA-eligible HDHP usually beats a PPO.",
         url: "https://fundit.fairpoint.website"
       },
       {
         title: "Use threads.",
+        category: "Slack",
         blurb: "A 40-scenario quiz on Slack threads. If you're replying to, answering, or building on a message that already exists, put it in a thread — not a flat top-level message that scatters one conversation across the channel and braids it with two others. Top-level is for starting things; threads are for continuing them.",
         url: "https://usethreads.fairpoint.website"
       },
       {
         title: "Mind your points.",
+        category: "Money",
         blurb: "A 41-scenario quiz plus three live calculators on percentage points vs. percent change vs. basis points. The move from 4% to 5% is +1 point, +25%, and +100 basis points — all true, all different, and \"up 1%\" is none of them. Learn which one you actually mean, when basis points genuinely earn their keep, and when they're just a flex.",
         url: "https://basisbasics.fairpoint.website"
       }
     ];
 
     const COMING_SOON = [
-      { label: "More.", note: "If you have a Slack habit you'd like a quiz about, open an issue on GitHub." }
+      { label: "More.", note: "Got a habit, number, or work-comms quirk that deserves a quiz? Open an issue on GitHub." }
     ];
+
+    function renderStats() {
+      const container = document.getElementById("stats");
+      container.replaceChildren(...STATS.map(s => {
+        const div = document.createElement("div");
+        div.className = "stat";
+        div.style.setProperty("--stat-accent", s.accent);
+        const num = document.createElement("div");
+        num.className = "num";
+        num.textContent = s.num;
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = s.label;
+        div.append(num, label);
+        return div;
+      }));
+    }
 
     function renderLessons() {
       const container = document.getElementById("lessons");
       container.replaceChildren(...LESSONS.map(l => {
+        const cat = CATEGORIES[l.category] || CATEGORIES.Slack;
         const a = document.createElement("a");
         a.className = "lesson";
         a.href = l.url;
+        a.style.setProperty("--accent", cat.color);
+        a.style.setProperty("--accent-ink", cat.ink);
         a.innerHTML = `
           <span class="play">Play ▸</span>
+          <span class="tag"></span>
           <div class="title"></div>
           <p class="blurb"></p>
           <div class="url"></div>
         `;
+        a.querySelector(".tag").textContent = l.category;
         a.querySelector(".title").textContent = l.title;
         a.querySelector(".blurb").textContent = l.blurb;
         a.querySelector(".url").textContent = l.url.replace(/^https?:\/\//, "") + " →";
@@ -283,6 +377,7 @@
       }));
     }
 
+    renderStats();
     renderLessons();
     renderComingSoon();
   </script>
