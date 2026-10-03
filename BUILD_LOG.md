@@ -1,5 +1,17 @@
 # Build Log — fairpoint
 
+## 2026-10-03 — Add "Don't @ in DMs." (13 lessons)
+
+**Prompt:** "/fairpoint don't @someone in a dm. even in a thread. they get the notif! (confirm via slack docs this is true true, and link to it)"
+
+**Problem:** New Slack lesson shipped at dontatindms.fairpoint.website and needed to be linked from the hub.
+
+**Solution:** Added a `LESSONS` entry (category Slack) and bumped the stats strip 12 → 13 lessons.
+
+**Key decisions:** Blurb leads with the Slack-docs-verified fact (1:1 DMs notify every message and thread reply) and names the group-DM-thread exception. Scenario count chip left at "400+".
+
+**Changed files:** `index.html`, `BUILD_LOG.md`
+
 ## 2026-05-26 — Beyond-Slack repositioning + landing-page glow-up
 
 **Prompt:** "The fairpoint landing page needs some love. make it exciting and change the copy to reflect this is beyond slack. its quick tips that are fair points, and good to know."
